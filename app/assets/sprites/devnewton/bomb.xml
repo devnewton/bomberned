@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TextureAtlas imagePath="bomb.png">
+    <!-- dropped -->
+    <SubTexture name="bomb.dropped0" x="0" y="96" width="32" height="32" />
+    <SubTexture name="bomb.dropped1" x="64" y="96" width="32" height="32" />
+    <!-- wait -->
+    <SubTexture name="bomb.abouttoexplode0" x="0" y="96" width="32" height="32" />
+    <SubTexture name="bomb.abouttoexplode1" x="32" y="96" width="32" height="32" />
+    <SubTexture name="bomb.abouttoexplode2" x="64" y="96" width="32" height="32" />
+</TextureAtlas>

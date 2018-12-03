@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TextureAtlas imagePath="emotions.png">
+    <!-- betty sad -->
+    <SubTexture name="betty.sad0" x="0" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad1" x="48" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad2" x="96" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad3" x="48" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad4" x="96" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad5" x="48" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad6" x="96" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad7" x="48" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad8" x="96" y="0" width="48" height="48" />
+    <SubTexture name="betty.sad9" x="48" y="0" width="48" height="48" />
+    <!-- betty2 sad -->
+    <SubTexture name="betty2.sad0" x="0" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad1" x="48" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad2" x="96" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad3" x="48" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad4" x="96" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad5" x="48" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad6" x="96" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad7" x="48" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad8" x="96" y="48" width="48" height="48" />
+    <SubTexture name="betty2.sad9" x="48" y="48" width="48" height="48" />
+    <!-- betty happy -->
+    <SubTexture name="betty.happy0" x="0" y="96" width="48" height="48" />
+    <SubTexture name="betty.happy1" x="48" y="96" width="48" height="48" />
+    <SubTexture name="betty.happy2" x="96" y="96" width="48" height="48" />
+    <SubTexture name="betty.happy3" x="48" y="96" width="48" height="48" />
+    <!-- betty2 happy -->
+    <SubTexture name="betty2.happy0" x="0" y="144" width="48" height="48" />
+    <SubTexture name="betty2.happy1" x="48" y="144" width="48" height="48" />
+    <SubTexture name="betty2.happy2" x="96" y="144" width="48" height="48" />
+    <SubTexture name="betty2.happy3" x="48" y="144" width="48" height="48" />
+    <!-- george sad -->
+    <SubTexture name="george.sad0" x="144" y="0" width="48" height="48" />
+    <SubTexture name="george.sad1" x="144" y="48" width="48" height="48" />
+    <SubTexture name="george.sad2" x="144" y="96" width="48" height="48" />
+    <SubTexture name="george.sad3" x="144" y="48" width="48" height="48" />
+    <SubTexture name="george.sad4" x="144" y="96" width="48" height="48" />
+    <SubTexture name="george.sad5" x="144" y="48" width="48" height="48" />
+    <SubTexture name="george.sad6" x="144" y="96" width="48" height="48" />
+    <SubTexture name="george.sad7" x="144" y="48" width="48" height="48" />
+    <SubTexture name="george.sad8" x="144" y="96" width="48" height="48" />
+    <SubTexture name="george.sad9" x="144" y="48" width="48" height="48" />
+        <!-- george2 sad -->
+    <SubTexture name="george2.sad0" x="192" y="0" width="48" height="48" />
+    <SubTexture name="george2.sad1" x="192" y="48" width="48" height="48" />
+    <SubTexture name="george2.sad2" x="192" y="96" width="48" height="48" />
+    <SubTexture name="george2.sad3" x="192" y="48" width="48" height="48" />
+    <SubTexture name="george2.sad4" x="192" y="96" width="48" height="48" />
+    <SubTexture name="george2.sad5" x="192" y="48" width="48" height="48" />
+    <SubTexture name="george2.sad6" x="192" y="96" width="48" height="48" />
+    <SubTexture name="george2.sad7" x="192" y="48" width="48" height="48" />
+    <SubTexture name="george2.sad8" x="192" y="96" width="48" height="48" />
+    <SubTexture name="george2.sad9" x="192" y="48" width="48" height="48" />
+    <!-- george happy -->
+    <SubTexture name="george.happy0" x="0" y="192" width="48" height="48" />
+    <SubTexture name="george.happy1" x="48" y="192" width="48" height="48" />
+    <SubTexture name="george.happy2" x="96" y="192" width="48" height="48" />
+    <SubTexture name="george.happy3" x="48" y="192" width="48" height="48" />
+    <!-- george2 happy -->
+    <SubTexture name="george2.happy0" x="144" y="144" width="48" height="48" />
+    <SubTexture name="george2.happy1" x="192" y="144" width="48" height="48" />
+    <SubTexture name="george2.happy2" x="144" y="192" width="48" height="48" />
+    <SubTexture name="george2.happy3" x="192" y="144" width="48" height="48" />
+</TextureAtlas>

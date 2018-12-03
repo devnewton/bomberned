@@ -1,0 +1,16 @@
+{
+    "name": "bomberned",
+    "version": "0.1.0",
+    "description": "bomberned",
+    "scripts": {
+        "start": "brunch watch --server",
+        "prod": "brunch build --production"
+    },
+    "devDependencies": {
+        "auto-reload-brunch": "^2.7.1",
+        "brunch": "^2.9.1",
+        "brunch-typescript": "^2.0.1"
+    },
+    "dependencies": {
+    }
+}

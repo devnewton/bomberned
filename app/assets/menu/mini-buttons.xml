@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TextureAtlas imagePath="mini-buttons.png">
+    <SubTexture name="out" x="0" y="0" width="108" height="105" />
+    <SubTexture name="over" x="0" y="105" width="108" height="104" />
+    <SubTexture name="down" x="0" y="210" width="108" height="104" />
+</TextureAtlas>
