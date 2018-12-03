@@ -2,7 +2,7 @@
 import { AbstractState } from "./AbstractState";
 import { BombernedGame } from "../BombernedGame";
 import { Player } from "../entities/Player";
-import { EmotionSprite } from "../entities/EmotionSprite";
+import { Bomb } from "../entities/Bomb";
 import { Team, TeamCollisionResolver } from "../entities/Team";
 import { Menu } from "../ui/Menu";
 
@@ -34,7 +34,7 @@ export class Level extends AbstractState {
 
     preload() {
         Player.preload( this.game );
-        EmotionSprite.preload( this.game );
+        Bomb.preload( this.game );
         Menu.preload( this.game );
         this.game.load.image( 'girls-win', 'victory/girls-win.png' );
         this.game.load.image( 'boys-win', 'victory/boys-win.png' );
@@ -199,16 +199,19 @@ export class Level extends AbstractState {
                 this.game.sound.stopAll();
                 this.game.sound.play( 'victory-music', 1, false );
                 this.nedsTeam.forEachAlive(( player ) => {
-                    let emo = new EmotionSprite( this.game, player.key, girlsWin ? 'happy' : 'sad' );
+                    /*let emo = new EmotionSprite( this.game, player.key, girlsWin ? 'happy' : 'sad' );
                     emo.x = player.x;
                     emo.y = player.y;
-                    player.kill();
+                    player.kill();*/
+                    //TODO
                 }, null );
                 this.moustakisTeam.forEachAlive(( player ) => {
-                    let emo = new EmotionSprite( this.game, player.key, boysWin ? 'happy' : 'sad' );
+                    /*let emo = new EmotionSprite( this.game, player.key, boysWin ? 'happy' : 'sad' );
                     emo.x = player.x;
                     emo.y = player.y;
                     player.kill();
+                    */
+                    //TODO
                 }, null );
                 let victoryText = this.game.add.sprite( this.game.world.centerX, 100, boysWin && girlsWin && 'draw' || boysWin && 'boys-win' || 'girls-win' );
                 var tween = this.game.add.tween( victoryText.scale ).to( { x: 1.4, y: 1.4 }, 1000, "Linear", true, 0, -1 );

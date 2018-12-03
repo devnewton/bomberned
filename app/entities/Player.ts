@@ -1,12 +1,16 @@
 /// <reference path="../../typings/phaser.d.ts"/>
 import { BombernedGame } from "../BombernedGame";
 import { AbstractControls } from "../utils/Controls";
+import { Bomb } from "./Bomb";
 
 interface PlayerState {
     update( player: Player );
 }
 
 class PlayerRunningState implements PlayerState {
+    
+    nextBombTime = -1;
+    
     update( player: Player ) {
         if ( !player.oldPos.equals( player.position ) ) {
             player.oldPos = player.position.clone();
@@ -14,6 +18,14 @@ class PlayerRunningState implements PlayerState {
         if ( player.controls ) {
             player.body.velocity.x = 0;
             player.body.velocity.y = 0;
+            
+            if( player.controls.isDroppingBomb() && player.game.time.time > this.nextBombTime) {
+                let bomb = new Bomb(player.game);
+                bomb.x = player.x;
+                bomb.y = player.y;
+                this.nextBombTime = player.game.time.time + 1000;
+            }
+            
             if ( player.controls.isGoingLeft() ) {
                 player.body.velocity.x = -300;
             } else if ( player.controls.isGoingRight() ) {
@@ -61,8 +73,6 @@ export class Player extends Phaser.Sprite {
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.dash.front', 1 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.dash.left', 1 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.dash.right', 1 );
-        ( <BombernedGame>game ).addSpriteAnimation( this, 'player.hammertime', 4 );
-        ( <BombernedGame>game ).addSpriteAnimation( this, 'player.hammered', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.wait', 1 );
 
         this.play( "player.wait", 8, false );
