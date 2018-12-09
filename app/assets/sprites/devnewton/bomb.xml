@@ -7,4 +7,31 @@
     <SubTexture name="bomb.abouttoexplode0" x="0" y="96" width="32" height="32" />
     <SubTexture name="bomb.abouttoexplode1" x="32" y="96" width="32" height="32" />
     <SubTexture name="bomb.abouttoexplode2" x="64" y="96" width="32" height="32" />
+    <!-- explosion center -->
+    <SubTexture name="bomb.explosion.center0" x="96" y="0" width="32" height="32" />
+    <SubTexture name="bomb.explosion.center1" x="64" y="0" width="32" height="32" />
+    <SubTexture name="bomb.explosion.center2" x="32" y="0" width="32" height="32" />
+    <SubTexture name="bomb.explosion.center3" x="0" y="0" width="32" height="32" />
+    <SubTexture name="bomb.explosion.center5" x="32" y="0" width="32" height="32" />
+    <SubTexture name="bomb.explosion.center6" x="64" y="0" width="32" height="32" />
+    <SubTexture name="bomb.explosion.center7" x="96" y="0" width="32" height="32" />
+    
+    <!-- explosion side -->
+    <SubTexture name="bomb.explosion.side0" x="96" y="32" width="32" height="32" />
+    <SubTexture name="bomb.explosion.side1" x="64" y="32" width="32" height="32" />
+    <SubTexture name="bomb.explosion.side2" x="32" y="32" width="32" height="32" />
+    <SubTexture name="bomb.explosion.side3" x="0" y="32" width="32" height="32" />
+    <SubTexture name="bomb.explosion.side5" x="32" y="32" width="32" height="32" />
+    <SubTexture name="bomb.explosion.side6" x="64" y="32" width="32" height="32" />
+    <SubTexture name="bomb.explosion.side7" x="96" y="32" width="32" height="32" />
+    
+     <!-- explosion end -->
+    <SubTexture name="bomb.explosion.end0" x="96" y="64" width="32" height="32" />
+    <SubTexture name="bomb.explosion.end1" x="64" y="64" width="32" height="32" />
+    <SubTexture name="bomb.explosion.end2" x="32" y="64" width="32" height="32" />
+    <SubTexture name="bomb.explosion.end3" x="0" y="64" width="32" height="32" />
+    <SubTexture name="bomb.explosion.end5" x="32" y="64" width="32" height="32" />
+    <SubTexture name="bomb.explosion.end6" x="64" y="64" width="32" height="32" />
+    <SubTexture name="bomb.explosion.end7" x="96" y="64" width="32" height="32" />
+
 </TextureAtlas>
