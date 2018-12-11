@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TextureAtlas imagePath="bomb.png">
+    <!-- explode -->
+    <SubTexture name="arrow.explode0" x="0" y="0" width="32" height="32" />
+    <SubTexture name="arrow.explode1" x="32" y="0" width="32" height="32" />
+    <SubTexture name="arrow.explode2" x="64" y="0" width="32" height="32" />
+    <SubTexture name="arrow.explode3" x="64" y="0" width="32" height="32" />
+    
+     <!-- fly -->
+    <SubTexture name="arrow.fly0" x="0" y="32" width="32" height="32" />
+    <SubTexture name="arrow.fly1" x="32" y="32" width="32" height="32" />
+    <SubTexture name="arrow.fly2" x="64" y="32" width="32" height="32" />
+    <SubTexture name="arrow.fly3" x="64" y="32" width="32" height="32" />
+    
+
+</TextureAtlas>
