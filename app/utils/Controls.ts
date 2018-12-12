@@ -60,7 +60,7 @@ export abstract class AbstractControls {
     abstract isGoingRight(): boolean;
     abstract isDroppingBomb(): boolean;
     abstract isMenuAsked(): boolean;
-    abstract dashingAngle( playerPos: Phaser.Point ): number;
+    abstract shootingAngle( playerPos: Phaser.Point ): number;
 
     protected readNumberFromLocalStorage( key: string, defaultValue: number ) {
         let i = parseInt( localStorage.getItem( key ) );
@@ -79,7 +79,7 @@ export class CPUControls extends AbstractControls {
     goingLeft: boolean = false;
     goingRight: boolean = false;
     droppingBomb: boolean = false;
-    dashAngle: number = null;
+    shootAngle: number = null;
 
     reset() {
         this.goingUp = false;
@@ -87,7 +87,7 @@ export class CPUControls extends AbstractControls {
         this.goingLeft = false;
         this.goingRight = false;
         this.droppingBomb = false;
-        this.dashAngle = null;
+        this.shootAngle = null;
     }
 
     isGoingUp(): boolean {
@@ -105,8 +105,8 @@ export class CPUControls extends AbstractControls {
     isDroppingBomb(): boolean {
         return this.droppingBomb;
     }
-    dashingAngle( playerPos: Phaser.Point ): number {
-        return this.dashAngle;
+    shootingAngle( playerPos: Phaser.Point ): number {
+        return this.shootAngle;
     }
     isMenuAsked(): boolean {
         return false;
@@ -119,7 +119,7 @@ export interface KeyboardControlsMapping {
     moveLeft?: number;
     moveRight?: number;
     droppingBomb?: number;
-    dash?: number;
+    shoot?: number;
     menu?: number;
 }
 
@@ -131,7 +131,7 @@ export class KeyboardControls extends AbstractControls {
     keyCodeMoveLeft: number;
     keyCodeMoveRight: number;
     keyCodeDroppingBomb: number;
-    keyCodeDash: number;
+    keyCodeShoot: number;
     keyCodeMenu: number;
 
     constructor( game: Phaser.Game ) {
@@ -150,7 +150,7 @@ export class KeyboardControls extends AbstractControls {
             this.keyCodeMoveLeft = mapping.moveLeft || Phaser.KeyCode.LEFT;
             this.keyCodeMoveRight = mapping.moveRight || Phaser.KeyCode.RIGHT;
             this.keyCodeDroppingBomb = mapping.droppingBomb || Phaser.KeyCode.SHIFT;
-            this.keyCodeDash = mapping.dash || Phaser.KeyCode.CONTROL;
+            this.keyCodeShoot = mapping.shoot || Phaser.KeyCode.CONTROL;
             this.keyCodeMenu = mapping.menu || Phaser.KeyCode.ESC;
             return;
         } catch ( e ) {
@@ -170,7 +170,7 @@ export class KeyboardControls extends AbstractControls {
         this.keyCodeMoveLeft = Phaser.KeyCode.Q;
         this.keyCodeMoveRight = Phaser.KeyCode.D;
         this.keyCodeDroppingBomb = Phaser.KeyCode.K;
-        this.keyCodeDash = Phaser.KeyCode.J;
+        this.keyCodeShoot = Phaser.KeyCode.J;
         this.keyCodeMenu = Phaser.KeyCode.ESC;
     }
 
@@ -180,7 +180,7 @@ export class KeyboardControls extends AbstractControls {
         this.keyCodeMoveLeft = Phaser.KeyCode.A;
         this.keyCodeMoveRight = Phaser.KeyCode.D;
         this.keyCodeDroppingBomb = Phaser.KeyCode.K;
-        this.keyCodeDash = Phaser.KeyCode.J;
+        this.keyCodeShoot = Phaser.KeyCode.J;
         this.keyCodeMenu = Phaser.KeyCode.ESC;
     }
 
@@ -190,12 +190,12 @@ export class KeyboardControls extends AbstractControls {
         this.keyCodeMoveLeft = Phaser.KeyCode.LEFT;
         this.keyCodeMoveRight = Phaser.KeyCode.RIGHT;
         this.keyCodeDroppingBomb = Phaser.KeyCode.SHIFT;
-        this.keyCodeDash = Phaser.KeyCode.CONTROL;
+        this.keyCodeShoot = Phaser.KeyCode.CONTROL;
         this.keyCodeMenu = Phaser.KeyCode.ESC;
     }
 
-    dashingAngle( playerPos: Phaser.Point ): number {
-        if ( this.kb && this.kb.isDown( this.keyCodeDash ) ) {
+    shootingAngle( playerPos: Phaser.Point ): number {
+        if ( this.kb && this.kb.isDown( this.keyCodeShoot ) ) {
             return this.lookingAngle();
         }
     }
@@ -247,7 +247,7 @@ export class KeyboardControls extends AbstractControls {
 export interface PadControlsMapping {
     moveXAxis?: number;
     moveYAxis?: number;
-    dashButton?: number;
+    shootButton?: number;
     menuButton?: number;
     droppingBombButton?: number;
 }
@@ -258,9 +258,9 @@ export class PadControls extends AbstractControls {
     private game: Phaser.Game;
     private moveXAxis: number;
     private moveYAxis: number;
-    private dashButton: number;
+    private shootButton: number;
     private menuButton: number;
-    private hammerTimeButton: number;
+    private droppingBombButton: number;
 
     constructor( game: Phaser.Game, padIndex: number ) {
         super();
@@ -285,9 +285,9 @@ export class PadControls extends AbstractControls {
                 }
                 this.moveXAxis = layout.moveXAxis || Phaser.Gamepad.XBOX360_STICK_LEFT_X;
                 this.moveYAxis = layout.moveYAxis || Phaser.Gamepad.XBOX360_STICK_LEFT_Y;
-                this.dashButton = layout.dashButton || Phaser.Gamepad.XBOX360_X;
+                this.shootButton = layout.shootButton || Phaser.Gamepad.XBOX360_X;
                 this.menuButton = layout.menuButton || Phaser.Gamepad.XBOX360_START;
-                this.hammerTimeButton = layout.droppingBombButton || Phaser.Gamepad.XBOX360_A;
+                this.droppingBombButton = layout.droppingBombButton || Phaser.Gamepad.XBOX360_A;
             }
             return true;
         } else {
@@ -295,8 +295,8 @@ export class PadControls extends AbstractControls {
         }
     }
 
-    dashingAngle( playerPos: Phaser.Point ): number {
-        if ( this.checkPad() && this.pad.isDown( this.dashButton ) ) {
+    shootingAngle( playerPos: Phaser.Point ): number {
+        if ( this.checkPad() && this.pad.isDown( this.shootButton ) ) {
             return this.lookingAngle();
         }
     }
@@ -330,7 +330,7 @@ export class PadControls extends AbstractControls {
     }
 
     isDroppingBomb(): boolean {
-        return this.checkPad() && this.pad.isDown( this.hammerTimeButton );
+        return this.checkPad() && this.pad.isDown( this.droppingBombButton );
     }
 
     isMenuAsked(): boolean {

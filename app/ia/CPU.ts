@@ -8,7 +8,6 @@ export class CPU {
     opponents: Phaser.Group;
     buddies: Phaser.Group;
     waitUntil: number;
-    hammerUntil: number; 
     lastCapturedCount: number = 0;
 
     think() {

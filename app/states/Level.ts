@@ -3,6 +3,8 @@ import { AbstractState } from "./AbstractState";
 import { BombernedGame } from "../BombernedGame";
 import { Player } from "../entities/Player";
 import { Bomb } from "../entities/Bomb";
+import { Arrow } from "../entities/Arrow";
+
 import { Team, TeamCollisionResolver } from "../entities/Team";
 import { Menu } from "../ui/Menu";
 
@@ -34,6 +36,7 @@ export class Level extends AbstractState {
 
     preload() {
         Player.preload( this.game );
+        Arrow.preload( this.game );
         Bomb.preload( this.game );
         Menu.preload( this.game );
         this.game.load.image( 'girls-win', 'victory/girls-win.png' );

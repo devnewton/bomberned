@@ -11,7 +11,7 @@ export class GamepadOptionsBindAxisOrButton extends AbstractState {
         { label: 'Pull move X axis', localStorageKey: 'moveXAxis' },
         { label: 'Pull move Y axis', localStorageKey: 'moveYAxis' },
         { label: 'Press drop bomb button', localStorageKey: 'droppingBombButton' },
-        { label: 'Press dash button', localStorageKey: 'dashButton' },
+        { label: 'Press shoot button', localStorageKey: 'shootButton' },
         { label: 'Press menu button', localStorageKey: 'menuButton' }
     ];
 

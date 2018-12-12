@@ -2,6 +2,7 @@
 import { BombernedGame } from "../BombernedGame";
 import { AbstractControls } from "../utils/Controls";
 import { Bomb } from "./Bomb";
+import { Arrow } from "./Arrow";
 
 interface PlayerState {
     update( player: Player );
@@ -19,6 +20,11 @@ class PlayerRunningState implements PlayerState {
             player.body.velocity.x = 0;
             player.body.velocity.y = 0;
             
+            let shootingAngle = player.controls.shootingAngle(player.position);
+            if( shootingAngle != null && !player.arrow.alive ) {
+                player.arrow.fire(player.position.x, player.position.y, shootingAngle, 500);
+            } 
+            
             if( player.controls.isDroppingBomb() && player.game.time.time > this.nextBombTime) {
                 let bomb = new Bomb(player.game);
                 bomb.x = player.x;
@@ -27,16 +33,16 @@ class PlayerRunningState implements PlayerState {
             }
             
             if ( player.controls.isGoingLeft() ) {
-                player.body.velocity.x = -300;
+                player.body.velocity.x = -1;
             } else if ( player.controls.isGoingRight() ) {
-                player.body.velocity.x = 300;
-            }
-
+                player.body.velocity.x = 1;
+            }           
             if ( player.controls.isGoingUp() ) {
-                player.body.velocity.y = -300;
+                player.body.velocity.y = -1;
             } else if ( player.controls.isGoingDown() ) {
-                player.body.velocity.y = 300;
+                player.body.velocity.y = 1;
             }
+            player.body.velocity = player.body.velocity.setMagnitude(300);
 
             if ( player.body.velocity.y < 0 ) {
                 player.play( "player.walk.back", 8, false );
@@ -60,6 +66,7 @@ export class Player extends Phaser.Sprite {
     controls: AbstractControls;
     state: PlayerState;
     cpuData: any = {};
+    arrow: Arrow;
     static RUNNING_STATE = new PlayerRunningState();
 
     constructor( game: Phaser.Game, key: string ) {
@@ -69,10 +76,6 @@ export class Player extends Phaser.Sprite {
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.front', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.left', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.right', 4 );
-        ( <BombernedGame>game ).addSpriteAnimation( this, 'player.dash.back', 1 );
-        ( <BombernedGame>game ).addSpriteAnimation( this, 'player.dash.front', 1 );
-        ( <BombernedGame>game ).addSpriteAnimation( this, 'player.dash.left', 1 );
-        ( <BombernedGame>game ).addSpriteAnimation( this, 'player.dash.right', 1 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.wait', 1 );
 
         this.play( "player.wait", 8, false );
@@ -82,6 +85,8 @@ export class Player extends Phaser.Sprite {
         this.body.collideWorldBounds = true;
         this.game.add.existing( this );
         this.state = Player.RUNNING_STATE;
+        
+        this.arrow = new Arrow(game);
     }
 
     static preload( game: Phaser.Game ) {
