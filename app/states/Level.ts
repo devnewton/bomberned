@@ -22,6 +22,9 @@ export class Level extends AbstractState {
 
     config: LevelConfig;
     collisionSprites: Phaser.Group;
+    bombs: Phaser.Group;
+    arrows: Phaser.Group;
+    explosions: Phaser.Group;
     nedsTeam: Team;
     moustakisTeam: Team;
     menu: Menu;
@@ -82,6 +85,10 @@ export class Level extends AbstractState {
                 this.collisionSprites.add( sprite );
             }
         }
+
+        this.explosions = new Phaser.Group( this.game );
+        this.bombs = new Phaser.Group( this.game );
+        this.arrows = new Phaser.Group( this.game );
 
         let controllers = ( this.game as BombernedGame ).controllers;
 

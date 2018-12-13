@@ -1,5 +1,6 @@
 /// <reference path="../../typings/phaser.d.ts"/>
 import { BombernedGame } from "../BombernedGame";
+import { Level } from "../states/Level";
 
 export class Arrow extends Phaser.Sprite {
 
@@ -13,7 +14,7 @@ export class Arrow extends Phaser.Sprite {
         this.exists = false;
         this.health = 0;
         this.alive = false;
-        this.game.add.existing( this );
+        ( <Level>this.game.state.getCurrentState() ).bombs.add(this);
     }
     
     static preload( game: Phaser.Game ) {
@@ -37,6 +38,6 @@ export class Explosion extends Phaser.Sprite {
         this.play( animation, 3, false );
         this.anchor.setTo( 0.5, 0.5 );
         this.angle = angle;
-        this.game.add.existing( this );
+        ( <Level>this.game.state.getCurrentState() ).explosions.add(this);
     }
 }

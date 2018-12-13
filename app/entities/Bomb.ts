@@ -1,5 +1,6 @@
 /// <reference path="../../typings/phaser.d.ts"/>
 import { BombernedGame } from "../BombernedGame";
+import { Level } from "../states/Level";
 
 const TIME_BEFORE_EXPLOSION = 5000;
 const ABOUT_TO_EXPLODE_ANIM_DURATION = 3000;
@@ -17,7 +18,8 @@ export class Bomb extends Phaser.Sprite {
         this.explosionTime = game.time.time + TIME_BEFORE_EXPLOSION;
         this.play( 'bomb.dropped', 4, true );
         this.anchor.setTo( 0.5, 0.5 );
-        this.game.add.existing( this );
+        
+        ( <Level>this.game.state.getCurrentState() ).bombs.add(this);
     }
 
     static preload( game: Phaser.Game ) {
@@ -64,6 +66,6 @@ export class Explosion extends Phaser.Sprite {
         this.play( animation, 3, false );
         this.anchor.setTo( 0.5, 0.5 );
         this.angle = angle;
-        this.game.add.existing( this );
+        ( <Level>this.game.state.getCurrentState() ).explosions.add(this);
     }
 }
