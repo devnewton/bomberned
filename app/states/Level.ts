@@ -5,10 +5,11 @@ import { Player } from "../entities/Player";
 import { Bomb } from "../entities/Bomb";
 import { Arrow } from "../entities/Arrow";
 
-import { Team, TeamCollisionResolver } from "../entities/Team";
+import { Team } from "../entities/Team";
 import { Menu } from "../ui/Menu";
 
 import { ControllerType, CPUControls } from "../utils/Controls";
+import { DamageResolver } from "../utils/DamageResolver";
 import { CPU } from "../ia/CPU";
 
 export class LevelConfig {
@@ -22,13 +23,13 @@ export class Level extends AbstractState {
 
     config: LevelConfig;
     collisionSprites: Phaser.Group;
+    damageResolver : DamageResolver;
     bombs: Phaser.Group;
     arrows: Phaser.Group;
     explosions: Phaser.Group;
     nedsTeam: Team;
     moustakisTeam: Team;
     menu: Menu;
-    teamCollisionResolver: TeamCollisionResolver;
     cpus: Array<CPU>;
     isNotFirstFrame: boolean;
     victory: boolean;
@@ -71,6 +72,8 @@ export class Level extends AbstractState {
         const layer = map.createLayer( 'ground' );
         map.createLayer( 'wall' );
         layer.resizeWorld();
+        
+        this.damageResolver = new DamageResolver(this.game);
 
         this.collisionSprites = this.game.add.physicsGroup( Phaser.Physics.ARCADE );
         for ( let o of map.objects['collision'] ) {
@@ -85,10 +88,10 @@ export class Level extends AbstractState {
                 this.collisionSprites.add( sprite );
             }
         }
-
-        this.explosions = new Phaser.Group( this.game );
+        
         this.bombs = new Phaser.Group( this.game );
         this.arrows = new Phaser.Group( this.game );
+        this.explosions = new Phaser.Group( this.game );
 
         let controllers = ( this.game as BombernedGame ).controllers;
 
@@ -130,8 +133,6 @@ export class Level extends AbstractState {
             this.moustakisTeam.add( moustaki2 );
         }
 
-        this.teamCollisionResolver = new TeamCollisionResolver( this.game );
-
         this.nedsTeam.forEachAlive(( player ) => {
             if ( player.controls instanceof CPUControls ) {
                 let cpu = new CPU();
@@ -171,7 +172,11 @@ export class Level extends AbstractState {
     update() {
         if ( this.isNotFirstFrame ) {
             if ( !this.checkVictory() ) {
-                this.teamCollisionResolver.groupVersusGroup( this.nedsTeam, this.moustakisTeam );
+                this.damageResolver.groupVersusGroup(this.arrows, this.bombs);
+                this.damageResolver.groupVersusGroup(this.arrows, this.nedsTeam);
+                this.damageResolver.groupVersusGroup(this.arrows, this.moustakisTeam);
+                this.damageResolver.groupVersusGroup(this.explosions, this.nedsTeam);
+                this.damageResolver.groupVersusGroup(this.explosions, this.moustakisTeam);
                 this.game.physics.arcade.collide( this.nedsTeam, this.collisionSprites );
                 this.game.physics.arcade.collide( this.moustakisTeam, this.collisionSprites );
                 this.cpus.forEach( c => c.think() );

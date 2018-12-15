@@ -22,7 +22,7 @@ class PlayerRunningState implements PlayerState {
             
             let shootingAngle = player.controls.shootingAngle(player.position);
             if( shootingAngle != null && !player.arrow.alive ) {
-                player.arrow.fire(player.position.x, player.position.y, shootingAngle, 500);
+                player.arrow.fire(player.x, player.y, shootingAngle, 500);
             } 
             
             if( player.controls.isDroppingBomb() && player.game.time.time > this.nextBombTime) {
@@ -86,7 +86,13 @@ export class Player extends Phaser.Sprite {
         this.game.add.existing( this );
         this.state = Player.RUNNING_STATE;
         
+        this.name = key;
+        
         this.arrow = new Arrow(game);
+        this.arrow.name = this.name + '-arrow';
+        this.arrow.data.friends = [ this.name ];
+
+        this.data.friends = [ this.arrow.name ];
     }
 
     static preload( game: Phaser.Game ) {
@@ -101,6 +107,17 @@ export class Player extends Phaser.Sprite {
     update() {
         super.update()
         this.state.update( this );
+    }
+    
+    invincible = false;
+
+    damage(amount: number): Phaser.Sprite {
+        if (!this.invincible) {
+            this.invincible = true;
+            this.game.add.tween(this).from({ tint: 0xFF0000 }).to({ tint: 0xFFFFFF }, 1000, Phaser.Easing.Linear.None, true, 0, 4, false).onComplete.add(() => this.invincible = false);
+            super.damage(amount);
+        }
+        return this;
     }
 
 }

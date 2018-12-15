@@ -1,6 +1,7 @@
 /// <reference path="../../typings/phaser.d.ts"/>
 import { BombernedGame } from "../BombernedGame";
 import { Level } from "../states/Level";
+import { Explosion } from "./Explosion";
 
 export class Arrow extends Phaser.Sprite {
 
@@ -14,7 +15,7 @@ export class Arrow extends Phaser.Sprite {
         this.exists = false;
         this.health = 0;
         this.alive = false;
-        ( <Level>this.game.state.getCurrentState() ).bombs.add(this);
+        ( <Level>this.game.state.getCurrentState() ).arrows.add(this);
     }
     
     static preload( game: Phaser.Game ) {
@@ -28,16 +29,29 @@ export class Arrow extends Phaser.Sprite {
         this.rotation = angle;
         this.play('arrow.fly', 4, true);
     }
+    
+    kill(): Phaser.Sprite {
+        let explosion = new ArrowExplosion( this.game );
+        let explosionPos = new Phaser.Point(this.x + 16, this.y);
+        Phaser.Point.rotate(explosionPos, this.x, this.y, this.rotation);
+        explosion.x = explosionPos.x;
+        explosion.y = explosionPos.y;
+        return super.kill();
+    }
 
 }
 
-export class Explosion extends Phaser.Sprite {
-    constructor( game: Phaser.Game, animation: string, angle: number ) {
-        super( game, game.world.centerX, game.world.centerY, 'bomb' );
-        ( <BombernedGame>game ).addSpriteAnimation( this, animation, 8 );
-        this.play( animation, 3, false );
+export class ArrowExplosion extends Explosion {
+    constructor( game: Phaser.Game ) {
+        super( game, game.world.centerX, game.world.centerY, 'arrow' );
+        ( <BombernedGame>game ).addSpriteAnimation( this, 'arrow.explode', 8 );
+        this.play( 'arrow.explode', 3, false, true );
         this.anchor.setTo( 0.5, 0.5 );
-        this.angle = angle;
         ( <Level>this.game.state.getCurrentState() ).explosions.add(this);
+    }
+    
+    kill(): Phaser.Sprite {
+        this.destroy();
+        return super.kill();
     }
 }
