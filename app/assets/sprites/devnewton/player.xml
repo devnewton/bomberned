@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <TextureAtlas imagePath="ned.png">
     <!-- back -->
-    <SubTexture name="player.walk.back0" x="0" y="0" width="64" height="64" />
-    <SubTexture name="player.walk.back1" x="64" y="0" width="64" height="64" />
-    <SubTexture name="player.walk.back2" x="128" y="0" width="64" height="64" />
+    <SubTexture name="player.walk.back0" x="13" y="8" width="32" height="46" />
+    <SubTexture name="player.walk.back1" x="77" y="8" width="32" height="46" />
+    <SubTexture name="player.walk.back2" x="141" y="8" width="32" height="46" />
     <!-- left -->
-    <SubTexture name="player.walk.left0" x="0" y="64" width="64" height="64" />
-    <SubTexture name="player.walk.left1" x="64" y="64" width="64" height="64" />
-    <SubTexture name="player.walk.left2" x="128" y="64" width="64" height="64" />
+    <SubTexture name="player.walk.left0" x="13" y="72" width="32" height="46" />
+    <SubTexture name="player.walk.left1" x="77" y="72" width="32" height="46" />
+    <SubTexture name="player.walk.left2" x="141" y="72" width="32" height="46" />
     <!-- front -->
-    <SubTexture name="player.walk.front0" x="0" y="128" width="64" height="64" />
-    <SubTexture name="player.walk.front1" x="64" y="128" width="64" height="64" />
-    <SubTexture name="player.walk.front2" x="128" y="128" width="64" height="64" />
+    <SubTexture name="player.walk.front0" x="13" y="136" width="32" height="46" />
+    <SubTexture name="player.walk.front1" x="77" y="136" width="32" height="46" />
+    <SubTexture name="player.walk.front2" x="141" y="136" width="32" height="46" />
     <!-- right -->
-    <SubTexture name="player.walk.right0" x="0" y="192" width="64" height="64" />
-    <SubTexture name="player.walk.right1" x="64" y="192" width="64" height="64" />
-    <SubTexture name="player.walk.right2" x="128" y="192" width="64" height="64" />
+    <SubTexture name="player.walk.right0" x="13" y="200" width="32" height="46" />
+    <SubTexture name="player.walk.right1" x="77" y="200" width="32" height="46" />
+    <SubTexture name="player.walk.right2" x="141" y="200" width="32" height="46" />
     <!-- wait -->
-    <SubTexture name="player.wait0" x="0" y="128" width="64" height="64" />
+    <SubTexture name="player.wait0" x="13" y="136" width="32" height="46" />
 </TextureAtlas>
