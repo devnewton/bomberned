@@ -89,10 +89,10 @@ export class Player extends Phaser.Sprite {
         this.name = key;
         
         this.arrow = new Arrow(game);
-        this.arrow.name = this.name + '-arrow';
-        this.arrow.data.friends = [ this.name ];
+        this.arrow.arrowCharge.data.friends = [ this.name ];
+        this.arrow.arrowCharge.name = this.name + '-arrow-charge';
 
-        this.data.friends = [ this.arrow.name ];
+        this.data.friends = [ this.arrow.arrowCharge.name ];
     }
 
     static preload( game: Phaser.Game ) {

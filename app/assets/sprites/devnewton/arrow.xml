@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <TextureAtlas imagePath="arrow.png">
+
+	<!-- arrow.charge -->
+    <SubTexture name="arrow.charge0" x="0" y="64" width="8" height="8" />
+    <SubTexture name="arrow.charge1" x="8" y="64" width="8" height="8" />
+    <SubTexture name="arrow.charge2" x="16" y="64" width="8" height="8" />
+    <SubTexture name="arrow.charge3" x="24" y="64" width="8" height="8" />
+    <SubTexture name="arrow.charge4" x="0" y="72" width="8" height="8" />
+    <SubTexture name="arrow.charge5" x="8" y="72" width="8" height="8" />
+    <SubTexture name="arrow.charge6" x="16" y="72" width="8" height="8" />
+    <SubTexture name="arrow.charge7" x="24" y="72" width="8" height="8" />
+    <SubTexture name="arrow.charge8" x="0" y="80" width="8" height="8" />
+    <SubTexture name="arrow.charge9" x="8" y="80" width="8" height="8" />
+    <SubTexture name="arrow.charge10" x="16" y="80" width="8" height="8" />
     <!-- explode -->
     <SubTexture name="arrow.explode0" x="0" y="0" width="32" height="32" />
     <SubTexture name="arrow.explode1" x="32" y="0" width="32" height="32" />

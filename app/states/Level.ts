@@ -3,7 +3,7 @@ import { AbstractState } from "./AbstractState";
 import { BombernedGame } from "../BombernedGame";
 import { Player } from "../entities/Player";
 import { Bomb } from "../entities/Bomb";
-import { Arrow } from "../entities/Arrow";
+import { Arrow, ArrowDamageResolver } from "../entities/Arrow";
 
 import { Team } from "../entities/Team";
 import { Menu } from "../ui/Menu";
@@ -172,9 +172,9 @@ export class Level extends AbstractState {
     update() {
         if ( this.isNotFirstFrame ) {
             if ( !this.checkVictory() ) {
-                this.damageResolver.groupVersusGroup(this.arrows, this.bombs);
-                this.damageResolver.groupVersusGroup(this.arrows, this.nedsTeam);
-                this.damageResolver.groupVersusGroup(this.arrows, this.moustakisTeam);
+                this.damageResolver.arrowsVersusGroup(this.arrows, this.bombs);
+                this.damageResolver.arrowsVersusGroup(this.arrows, this.nedsTeam);
+                this.damageResolver.arrowsVersusGroup(this.arrows, this.moustakisTeam);
                 this.damageResolver.groupVersusGroup(this.explosions, this.nedsTeam);
                 this.damageResolver.groupVersusGroup(this.explosions, this.moustakisTeam);
                 this.game.physics.arcade.collide( this.nedsTeam, this.collisionSprites );
