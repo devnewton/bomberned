@@ -54,7 +54,7 @@ export class TeamSelectScreen extends AbstractState {
         let playerOptions = [
             new MenuSelectOption<ControllerType>( ControllerType.NONE, 'None' ),
             new MenuSelectOption<ControllerType>( ControllerType.CPU, 'CPU' ),
-            new MenuSelectOption<ControllerType>( ControllerType.KEYBOARD, 'Keyboard' ),
+            new MenuSelectOption<ControllerType>( ControllerType.KEYBOARD_AND_MOUSE, 'Keyboard & mouse' ),
             new MenuSelectOption<ControllerType>( ControllerType.PAD1, 'Pad 1' ),
             new MenuSelectOption<ControllerType>( ControllerType.PAD2, 'Pad 2' ),
             new MenuSelectOption<ControllerType>( ControllerType.PAD3, 'Pad 3' ),
@@ -86,7 +86,7 @@ export class TeamSelectScreen extends AbstractState {
     autoSelect() {
         switch ( this.input.gamepad.padsConnected ) {
             case 0:
-                this.nedSelect.setSelectedValue( ControllerType.KEYBOARD );
+                this.nedSelect.setSelectedValue( ControllerType.KEYBOARD_AND_MOUSE );
                 this.ned2Select.setSelectedValue( ControllerType.CPU );
                 this.moustakiSelect.setSelectedValue( ControllerType.CPU );
                 this.moustaki2Select.setSelectedValue( ControllerType.CPU );

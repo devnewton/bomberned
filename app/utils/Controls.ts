@@ -3,338 +3,324 @@
 import { GamepadUtils } from "./GamepadUtils";
 
 export enum ControllerType {
-    NONE = -2,
-    CPU = -1,
-    KEYBOARD = 0,
-    PAD1 = 1,
-    PAD2 = 2,
-    PAD3 = 3,
-    PAD4 = 4
+	NONE = -2,
+	CPU = -1,
+	KEYBOARD_AND_MOUSE = 0,
+	PAD1 = 1,
+	PAD2 = 2,
+	PAD3 = 3,
+	PAD4 = 4
 }
 
 export class Controllers {
-    controllers: Array<AbstractControls>;
+	controllers: Array<AbstractControls>;
 
-    constructor( game: Phaser.Game ) {
-        game.input.gamepad.start();
-        this.controllers = [
-            new KeyboardControls( game ),
-            new PadControls( game, 1 ),
-            new PadControls( game, 2 ),
-            new PadControls( game, 3 ),
-            new PadControls( game, 4 ),
-        ];
-    }
+	constructor(game: Phaser.Game) {
+		game.input.gamepad.start();
+		this.controllers = [
+			new KeyboardAndMouseControls(game),
+			new PadControls(game, 1),
+			new PadControls(game, 2),
+			new PadControls(game, 3),
+			new PadControls(game, 4),
+		];
+	}
 
-    getController( type: ControllerType ): AbstractControls {
-        switch ( type ) {
-            case ControllerType.NONE:
-                return null;
-            case ControllerType.CPU:
-                return new CPUControls();
-            default:
-                return this.controllers[type];
-        }
-    }
+	getController(type: ControllerType): AbstractControls {
+		switch (type) {
+			case ControllerType.NONE:
+				return null;
+			case ControllerType.CPU:
+				return new CPUControls();
+			default:
+				return this.controllers[type];
+		}
+	}
 
-    getKeyboard(): KeyboardControls {
-        return this.controllers[0] as KeyboardControls;
-    }
+	getKeyboard(): KeyboardAndMouseControls {
+		return this.controllers[0] as KeyboardAndMouseControls;
+	}
 
-    getPad( padIndex: number ): PadControls {
-        return this.controllers[padIndex] as PadControls;
-    }
+	getPad(padIndex: number): PadControls {
+		return this.controllers[padIndex] as PadControls;
+	}
 
-    updatePadLayout() {
-        for ( let i = 1; i < 4; ++i ) {
-            ( <PadControls>this.controllers[i] ).updatePadLayout();
-        }
-    }
+	updatePadLayout() {
+		for (let i = 1; i < 4; ++i) {
+			(<PadControls>this.controllers[i]).updatePadLayout();
+		}
+	}
 }
 
 export abstract class AbstractControls {
 
-    abstract isGoingUp(): boolean;
-    abstract isGoingDown(): boolean;
-    abstract isGoingLeft(): boolean;
-    abstract isGoingRight(): boolean;
-    abstract isDroppingBomb(): boolean;
-    abstract isMenuAsked(): boolean;
-    abstract shootingAngle( playerPos: Phaser.Point ): number;
+	abstract isGoingUp(): boolean;
+	abstract isGoingDown(): boolean;
+	abstract isGoingLeft(): boolean;
+	abstract isGoingRight(): boolean;
+	abstract isDroppingBomb(): boolean;
+	abstract isMenuAsked(): boolean;
+	abstract isShooting(): boolean;
+	abstract aimingAngle(playerPos: Phaser.Point): number;
 
-    protected readNumberFromLocalStorage( key: string, defaultValue: number ) {
-        let i = parseInt( localStorage.getItem( key ) );
-        if ( isNaN( i ) ) {
-            return defaultValue;
-        } else {
-            return i;
-        }
-    }
+	protected readNumberFromLocalStorage(key: string, defaultValue: number) {
+		let i = parseInt(localStorage.getItem(key));
+		if (isNaN(i)) {
+			return defaultValue;
+		} else {
+			return i;
+		}
+	}
 }
 
 export class CPUControls extends AbstractControls {
 
-    goingUp: boolean = false;
-    goingDown: boolean = false;
-    goingLeft: boolean = false;
-    goingRight: boolean = false;
-    droppingBomb: boolean = false;
-    shootAngle: number = null;
+	goingUp: boolean = false;
+	goingDown: boolean = false;
+	goingLeft: boolean = false;
+	goingRight: boolean = false;
+	droppingBomb: boolean = false;
+	aimAngle: number = null;
+	shooting: boolean = false;
 
-    reset() {
-        this.goingUp = false;
-        this.goingDown = false;
-        this.goingLeft = false;
-        this.goingRight = false;
-        this.droppingBomb = false;
-        this.shootAngle = null;
-    }
+	reset() {
+		this.goingUp = false;
+		this.goingDown = false;
+		this.goingLeft = false;
+		this.goingRight = false;
+		this.droppingBomb = false;
+		this.aimAngle = null;
+		this.shooting = false;
+	}
 
-    isGoingUp(): boolean {
-        return this.goingUp;
-    }
-    isGoingDown(): boolean {
-        return this.goingDown;
-    }
-    isGoingLeft(): boolean {
-        return this.goingLeft;
-    }
-    isGoingRight(): boolean {
-        return this.goingRight;
-    }
-    isDroppingBomb(): boolean {
-        return this.droppingBomb;
-    }
-    shootingAngle( playerPos: Phaser.Point ): number {
-        return this.shootAngle;
-    }
-    isMenuAsked(): boolean {
-        return false;
-    }
+	isGoingUp(): boolean {
+		return this.goingUp;
+	}
+	isGoingDown(): boolean {
+		return this.goingDown;
+	}
+	isGoingLeft(): boolean {
+		return this.goingLeft;
+	}
+	isGoingRight(): boolean {
+		return this.goingRight;
+	}
+	isDroppingBomb(): boolean {
+		return this.droppingBomb;
+	}
+	aimingAngle(playerPos: Phaser.Point): number {
+		return this.aimAngle;
+	}
+	isShooting(): boolean {
+		return this.shooting;
+	}
+	isMenuAsked(): boolean {
+		return false;
+	}
 }
 
 export interface KeyboardControlsMapping {
-    moveUp?: number;
-    moveDown?: number;
-    moveLeft?: number;
-    moveRight?: number;
-    droppingBomb?: number;
-    shoot?: number;
-    menu?: number;
+	moveUp?: number;
+	moveDown?: number;
+	moveLeft?: number;
+	moveRight?: number;
+	menu?: number;
 }
 
-export class KeyboardControls extends AbstractControls {
-    kb: Phaser.Keyboard;
-    game: Phaser.Game;
-    keyCodeMoveUp: number;
-    keyCodeMoveDown: number;
-    keyCodeMoveLeft: number;
-    keyCodeMoveRight: number;
-    keyCodeDroppingBomb: number;
-    keyCodeShoot: number;
-    keyCodeMenu: number;
+export class KeyboardAndMouseControls extends AbstractControls {
+	kb: Phaser.Keyboard;
+	game: Phaser.Game;
+	keyCodeMoveUp: number;
+	keyCodeMoveDown: number;
+	keyCodeMoveLeft: number;
+	keyCodeMoveRight: number;
+	keyCodeMenu: number;
 
-    constructor( game: Phaser.Game ) {
-        super();
-        this.game = game;
-        this.setupKeyboardLayout();
-    }
+	constructor(game: Phaser.Game) {
+		super();
+		this.game = game;
+		this.setupKeyboardLayout();
+	}
 
-    setupKeyboardLayout() {
-        const layout = localStorage.getItem( 'keyboard.layout' );
-        this.kb = this.game.input.keyboard;
-        try {
-            let mapping: KeyboardControlsMapping = JSON.parse( layout ) || {};
-            this.keyCodeMoveUp = mapping.moveUp || Phaser.KeyCode.UP;
-            this.keyCodeMoveDown = mapping.moveDown || Phaser.KeyCode.DOWN;
-            this.keyCodeMoveLeft = mapping.moveLeft || Phaser.KeyCode.LEFT;
-            this.keyCodeMoveRight = mapping.moveRight || Phaser.KeyCode.RIGHT;
-            this.keyCodeDroppingBomb = mapping.droppingBomb || Phaser.KeyCode.SHIFT;
-            this.keyCodeShoot = mapping.shoot || Phaser.KeyCode.CONTROL;
-            this.keyCodeMenu = mapping.menu || Phaser.KeyCode.ESC;
-            return;
-        } catch ( e ) {
-        }
-        if ( layout == 'azerty' ) {
-            this.useAzertyLayout();
-        } else if ( layout == 'qwerty' ) {
-            this.useQwertyLayout();
-        } else {
-            this.useOtherKeyboardLayout();
-        }
-    }
+	setupKeyboardLayout() {
+		const layout = localStorage.getItem('keyboard.layout');
+		this.kb = this.game.input.keyboard;
+		try {
+			let mapping: KeyboardControlsMapping = JSON.parse(layout) || {};
+			this.keyCodeMoveUp = mapping.moveUp || Phaser.KeyCode.UP;
+			this.keyCodeMoveDown = mapping.moveDown || Phaser.KeyCode.DOWN;
+			this.keyCodeMoveLeft = mapping.moveLeft || Phaser.KeyCode.LEFT;
+			this.keyCodeMoveRight = mapping.moveRight || Phaser.KeyCode.RIGHT;
+			this.keyCodeMenu = mapping.menu || Phaser.KeyCode.ESC;
+			return;
+		} catch (e) {
+		}
+		if (layout == 'azerty') {
+			this.useAzertyLayout();
+		} else if (layout == 'qwerty') {
+			this.useQwertyLayout();
+		} else {
+			this.useOtherKeyboardLayout();
+		}
+	}
 
-    private useAzertyLayout() {
-        this.keyCodeMoveUp = Phaser.KeyCode.Z;
-        this.keyCodeMoveDown = Phaser.KeyCode.S;
-        this.keyCodeMoveLeft = Phaser.KeyCode.Q;
-        this.keyCodeMoveRight = Phaser.KeyCode.D;
-        this.keyCodeDroppingBomb = Phaser.KeyCode.K;
-        this.keyCodeShoot = Phaser.KeyCode.J;
-        this.keyCodeMenu = Phaser.KeyCode.ESC;
-    }
+	private useAzertyLayout() {
+		this.keyCodeMoveUp = Phaser.KeyCode.Z;
+		this.keyCodeMoveDown = Phaser.KeyCode.S;
+		this.keyCodeMoveLeft = Phaser.KeyCode.Q;
+		this.keyCodeMoveRight = Phaser.KeyCode.D;
+		this.keyCodeMenu = Phaser.KeyCode.ESC;
+	}
 
-    private useQwertyLayout() {
-        this.keyCodeMoveUp = Phaser.KeyCode.W;
-        this.keyCodeMoveDown = Phaser.KeyCode.S;
-        this.keyCodeMoveLeft = Phaser.KeyCode.A;
-        this.keyCodeMoveRight = Phaser.KeyCode.D;
-        this.keyCodeDroppingBomb = Phaser.KeyCode.K;
-        this.keyCodeShoot = Phaser.KeyCode.J;
-        this.keyCodeMenu = Phaser.KeyCode.ESC;
-    }
+	private useQwertyLayout() {
+		this.keyCodeMoveUp = Phaser.KeyCode.W;
+		this.keyCodeMoveDown = Phaser.KeyCode.S;
+		this.keyCodeMoveLeft = Phaser.KeyCode.A;
+		this.keyCodeMoveRight = Phaser.KeyCode.D;
+		this.keyCodeMenu = Phaser.KeyCode.ESC;
+	}
 
-    private useOtherKeyboardLayout() {
-        this.keyCodeMoveUp = Phaser.KeyCode.UP;
-        this.keyCodeMoveDown = Phaser.KeyCode.DOWN;
-        this.keyCodeMoveLeft = Phaser.KeyCode.LEFT;
-        this.keyCodeMoveRight = Phaser.KeyCode.RIGHT;
-        this.keyCodeDroppingBomb = Phaser.KeyCode.SHIFT;
-        this.keyCodeShoot = Phaser.KeyCode.CONTROL;
-        this.keyCodeMenu = Phaser.KeyCode.ESC;
-    }
+	private useOtherKeyboardLayout() {
+		this.keyCodeMoveUp = Phaser.KeyCode.UP;
+		this.keyCodeMoveDown = Phaser.KeyCode.DOWN;
+		this.keyCodeMoveLeft = Phaser.KeyCode.LEFT;
+		this.keyCodeMoveRight = Phaser.KeyCode.RIGHT;
+		this.keyCodeMenu = Phaser.KeyCode.ESC;
+	}
 
-    shootingAngle( playerPos: Phaser.Point ): number {
-        if ( this.kb && this.kb.isDown( this.keyCodeShoot ) ) {
-            return this.lookingAngle();
-        }
-    }
+	isShooting(): boolean {
+		return this.game.input.activePointer.rightButton.isDown;
+	}
 
-    lookingAngle(): number {
-        let dx = 0;
-        if ( this.kb.isDown( this.keyCodeMoveLeft ) ) {
-            dx = -1;
-        } else if ( this.kb.isDown( this.keyCodeMoveRight ) ) {
-            dx = 1;
-        }
-        let dy = 0;
-        if ( this.kb.isDown( this.keyCodeMoveUp ) ) {
-            dy = -1;
-        } else if ( this.kb.isDown( this.keyCodeMoveDown ) ) {
-            dy = 1;
-        }
-        if ( dx != 0 || dy != 0 ) {
-            return Phaser.Math.angleBetween( 0, 0, dx, dy );
-        } else {
-            return null;
-        }
-    }
-    isGoingUp(): boolean {
-        return this.kb && this.kb.isDown( this.keyCodeMoveUp );
-    }
-    isGoingDown(): boolean {
-        return this.kb && this.kb.isDown( this.keyCodeMoveDown );
-    }
+	aimingAngle(playerPos: Phaser.Point): number {
+		const pointer = this.game.input.activePointer;
+		return Phaser.Math.angleBetween(playerPos.x, playerPos.y, pointer.worldX, pointer.worldY);
+	}
 
-    isGoingLeft(): boolean {
-        return this.kb && this.kb.isDown( this.keyCodeMoveLeft );
-    }
+	isGoingUp(): boolean {
+		return this.kb && this.kb.isDown(this.keyCodeMoveUp);
+	}
+	isGoingDown(): boolean {
+		return this.kb && this.kb.isDown(this.keyCodeMoveDown);
+	}
 
-    isGoingRight(): boolean {
-        return this.kb && this.kb.isDown( this.keyCodeMoveRight );
-    }
+	isGoingLeft(): boolean {
+		return this.kb && this.kb.isDown(this.keyCodeMoveLeft);
+	}
 
-    isDroppingBomb(): boolean {
-        return this.kb && this.kb.isDown( this.keyCodeDroppingBomb );
-    }
+	isGoingRight(): boolean {
+		return this.kb && this.kb.isDown(this.keyCodeMoveRight);
+	}
 
-    isMenuAsked(): boolean {
-        return this.kb && this.kb.isDown( this.keyCodeMenu );
-    }
+	isDroppingBomb(): boolean {
+		return this.kb && this.game.input.activePointer.leftButton.isDown;
+	}
+
+	isMenuAsked(): boolean {
+		return this.kb && this.kb.isDown(this.keyCodeMenu);
+	}
 
 }
 
 export interface PadControlsMapping {
-    moveXAxis?: number;
-    moveYAxis?: number;
-    shootButton?: number;
-    menuButton?: number;
-    droppingBombButton?: number;
+	moveXAxis?: number;
+	moveYAxis?: number;
+	aimXAxis?: number;
+	aimYAxis?: number;
+	shootButton?: number;
+	menuButton?: number;
+	droppingBombButton?: number;
 }
 
 export class PadControls extends AbstractControls {
-    padIndex: number;
-    private pad: Phaser.SinglePad;
-    private game: Phaser.Game;
-    private moveXAxis: number;
-    private moveYAxis: number;
-    private shootButton: number;
-    private menuButton: number;
-    private droppingBombButton: number;
+	padIndex: number;
+	private pad: Phaser.SinglePad;
+	private game: Phaser.Game;
+	private moveXAxis: number;
+	private moveYAxis: number;
+	private aimXAxis: number;
+	private aimYAxis: number;
+	private shootButton: number;
+	private menuButton: number;
+	private droppingBombButton: number;
 
-    constructor( game: Phaser.Game, padIndex: number ) {
-        super();
-        this.game = game;
-        this.padIndex = padIndex;
-    }
+	constructor(game: Phaser.Game, padIndex: number) {
+		super();
+		this.game = game;
+		this.padIndex = padIndex;
+	}
 
-    updatePadLayout() {
-        this.pad = null;
-    }
+	updatePadLayout() {
+		this.pad = null;
+	}
 
-    private checkPad(): boolean {
-        let pad = GamepadUtils.gamepadByIndex( this.game, this.padIndex );
-        if ( pad != null ) {
-            if ( this.pad != pad ) {
-                this.pad = pad;
-                let layout: PadControlsMapping = {};
-                try {
-                    layout = JSON.parse( localStorage.getItem( 'gamepad.' + GamepadUtils.gamepadId( this.pad ) + '.layout' ) ) || {};
-                } catch ( e ) {
-                    layout = {};
-                }
-                this.moveXAxis = layout.moveXAxis || Phaser.Gamepad.XBOX360_STICK_LEFT_X;
-                this.moveYAxis = layout.moveYAxis || Phaser.Gamepad.XBOX360_STICK_LEFT_Y;
-                this.shootButton = layout.shootButton || Phaser.Gamepad.XBOX360_X;
-                this.menuButton = layout.menuButton || Phaser.Gamepad.XBOX360_START;
-                this.droppingBombButton = layout.droppingBombButton || Phaser.Gamepad.XBOX360_A;
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
+	private checkPad(): boolean {
+		let pad = GamepadUtils.gamepadByIndex(this.game, this.padIndex);
+		if (pad != null) {
+			if (this.pad != pad) {
+				this.pad = pad;
+				let layout: PadControlsMapping = {};
+				try {
+					layout = JSON.parse(localStorage.getItem('gamepad.' + GamepadUtils.gamepadId(this.pad) + '.layout')) || {};
+				} catch (e) {
+					layout = {};
+				}
+				this.moveXAxis = layout.moveXAxis || Phaser.Gamepad.XBOX360_STICK_LEFT_X;
+				this.moveYAxis = layout.moveYAxis || Phaser.Gamepad.XBOX360_STICK_LEFT_Y;
+				this.aimXAxis = layout.aimXAxis || Phaser.Gamepad.XBOX360_STICK_RIGHT_X;
+				this.aimYAxis = layout.aimYAxis || Phaser.Gamepad.XBOX360_STICK_RIGHT_Y;
+				this.shootButton = layout.shootButton || Phaser.Gamepad.XBOX360_RIGHT_BUMPER;
+				this.menuButton = layout.menuButton || Phaser.Gamepad.XBOX360_START;
+				this.droppingBombButton = layout.droppingBombButton || Phaser.Gamepad.XBOX360_LEFT_BUMPER;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    shootingAngle( playerPos: Phaser.Point ): number {
-        if ( this.checkPad() && this.pad.isDown( this.shootButton ) ) {
-            return this.lookingAngle();
-        }
-    }
+	isShooting(): boolean {
+		return this.checkPad() && this.pad.isDown(this.shootButton);
+	}
 
-    private lookingAngle(): number {
-        let dx = this.pad.axis( this.moveXAxis );
-        let dy = this.pad.axis( this.moveYAxis );
-        dx = Math.abs( dx ) <= this.pad.deadZone ? 0 : dx;
-        dy = Math.abs( dy ) <= this.pad.deadZone ? 0 : dy;
-        if ( dx != 0 || dy != 0 ) {
-            return Phaser.Math.angleBetween( 0, 0, dx, dy );
-        } else {
-            return null;
-        }
-    }
+	aimingAngle(playerPos: Phaser.Point): number {
+		return this.checkPad() && this.aimingAngleFromPad();
+	}
 
-    isGoingUp(): boolean {
-        return this.checkPad() && this.pad.axis( this.moveYAxis ) < -this.pad.deadZone
-            ;
-    }
-    isGoingDown(): boolean {
-        return this.checkPad() && this.pad.axis( this.moveYAxis ) > this.pad.deadZone;
-    }
+	private aimingAngleFromPad(): number {
+		let dx = this.pad.axis(this.aimXAxis);
+		let dy = this.pad.axis(this.aimYAxis);
+		dx = Math.abs(dx) <= this.pad.deadZone ? 0 : dx;
+		dy = Math.abs(dy) <= this.pad.deadZone ? 0 : dy;
+		if (dx != 0 || dy != 0) {
+			return Phaser.Math.angleBetween(0, 0, dx, dy);
+		} else {
+			return null;
+		}
+	}
 
-    isGoingLeft(): boolean {
-        return this.checkPad() && this.pad.axis( this.moveXAxis ) < -this.pad.deadZone;
-    }
+	isGoingUp(): boolean {
+		return this.checkPad() && this.pad.axis(this.moveYAxis) < -this.pad.deadZone
+			;
+	}
+	isGoingDown(): boolean {
+		return this.checkPad() && this.pad.axis(this.moveYAxis) > this.pad.deadZone;
+	}
 
-    isGoingRight(): boolean {
-        return this.checkPad() && this.pad.axis( this.moveXAxis ) > this.pad.deadZone;
-    }
+	isGoingLeft(): boolean {
+		return this.checkPad() && this.pad.axis(this.moveXAxis) < -this.pad.deadZone;
+	}
 
-    isDroppingBomb(): boolean {
-        return this.checkPad() && this.pad.isDown( this.droppingBombButton );
-    }
+	isGoingRight(): boolean {
+		return this.checkPad() && this.pad.axis(this.moveXAxis) > this.pad.deadZone;
+	}
 
-    isMenuAsked(): boolean {
-        return this.checkPad() && this.pad.isDown( this.menuButton );
-    }
+	isDroppingBomb(): boolean {
+		return this.checkPad() && this.pad.isDown(this.droppingBombButton);
+	}
+
+	isMenuAsked(): boolean {
+		return this.checkPad() && this.pad.isDown(this.menuButton);
+	}
 
 }

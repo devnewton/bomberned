@@ -20,10 +20,12 @@ class PlayerRunningState implements PlayerState {
             player.body.velocity.x = 0;
             player.body.velocity.y = 0;
             
-            let shootingAngle = player.controls.shootingAngle(player.position);
-            if( shootingAngle != null && !player.arrow.alive ) {
-                player.arrow.fire(player.x, player.y, shootingAngle, 500);
-            } 
+            let aimingAngle = player.controls.aimingAngle(player.position);
+            if(aimingAngle != null) {
+	            if( player.controls.isShooting() && !player.arrow.alive ) {
+	                player.arrow.fire(player.x, player.y, aimingAngle, 500);
+	            }
+            }
             
             if( player.controls.isDroppingBomb() && player.game.time.time > this.nextBombTime) {
                 let bomb = new Bomb(player.game);

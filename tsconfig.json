@@ -1,17 +1,17 @@
 {
-  "compileOnSave": true,
-  "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "noEmitHelpers": false,
-    "sourceMap": false,
+	"compileOnSave": true,
+	"compilerOptions": {
+		"target": "es2015",
+		"module": "commonjs",
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"noEmitHelpers": false,
+		"sourceMap": false,
 		"noEmit": false,
 		"inlineSourceMap": false,
 		"inlineSources": false,
-		"outDir": "tmp",
-		},
+		"outDir": "tmp"
+	},
 	"buildOnSave": true
 }
