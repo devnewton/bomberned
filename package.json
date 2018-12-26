@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "description": "bomberned",
     "scripts": {
-        "start": "npx brunch watch --server",
-        "build": "npx brunch build --production"
+        "start": "npm brunch watch --server",
+        "build": "npm brunch build --production"
     },
     "devDependencies": {
         "auto-reload-brunch": "^2.7.1",
