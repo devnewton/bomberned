@@ -43,8 +43,8 @@ export class Level extends AbstractState {
         Arrow.preload( this.game );
         Bomb.preload( this.game );
         Menu.preload( this.game );
-        this.game.load.image( 'girls-win', 'victory/girls-win.png' );
-        this.game.load.image( 'boys-win', 'victory/boys-win.png' );
+        this.game.load.image( 'neds-win', 'victory/neds-win.png' );
+        this.game.load.image( 'moustakis-win', 'victory/moustakis-win.png' );
         this.game.load.tilemap( 'map', 'levels/level1.json', null, Phaser.Tilemap.TILED_JSON );
         this.game.load.image( 'dojo', 'levels/dojo.png' );
         this.game.load.image( 'arabic1', 'sprites/opengameart/arabic_set/arabic1.png' );
@@ -207,28 +207,20 @@ export class Level extends AbstractState {
 
     checkVictory(): boolean {
         if ( !this.victory ) {
-            const girlsWin = false; // TODO
-            const boysWin = false; // TODO
-            this.victory = boysWin || girlsWin;
+            const nedsTeamWin = this.moustakisTeam.countLiving() === 0;
+            const moustakisTeamWin = this.nedsTeam.countLiving() === 0;
+            this.victory = nedsTeamWin || moustakisTeamWin;
             if ( this.victory ) {
                 this.game.sound.stopAll();
                 this.game.sound.play( 'victory-music', 1, false );
-                this.nedsTeam.forEachAlive(( player ) => {
-                    /*let emo = new EmotionSprite( this.game, player.key, girlsWin ? 'happy' : 'sad' );
-                    emo.x = player.x;
-                    emo.y = player.y;
-                    player.kill();*/
-                    //TODO
+                //TODO
+                /*this.nedsTeam.forEachAlive(( player ) => {
+                    player.kill();
                 }, null );
                 this.moustakisTeam.forEachAlive(( player ) => {
-                    /*let emo = new EmotionSprite( this.game, player.key, boysWin ? 'happy' : 'sad' );
-                    emo.x = player.x;
-                    emo.y = player.y;
                     player.kill();
-                    */
-                    //TODO
-                }, null );
-                let victoryText = this.game.add.sprite( this.game.world.centerX, 100, boysWin && girlsWin && 'draw' || boysWin && 'boys-win' || 'girls-win' );
+                }, null );*/
+                let victoryText = this.game.add.sprite( this.game.world.centerX, 100, nedsTeamWin && moustakisTeamWin && 'draw' || nedsTeamWin && 'neds-win' || 'moustakis-win' );
                 var tween = this.game.add.tween( victoryText.scale ).to( { x: 1.4, y: 1.4 }, 1000, "Linear", true, 0, -1 );
                 tween.yoyo( true );
                 victoryText.anchor.setTo( 0.5, 0 );
