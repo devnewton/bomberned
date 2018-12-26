@@ -18,4 +18,6 @@
     <SubTexture name="player.walk.right2" x="141" y="200" width="32" height="46" />
     <!-- wait -->
     <SubTexture name="player.wait0" x="13" y="136" width="32" height="46" />
+    <!-- ghost -->
+    <SubTexture name="player.ghost0" x="206" y="7" width="32" height="48" />
 </TextureAtlas>

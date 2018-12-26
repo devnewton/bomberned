@@ -3,7 +3,7 @@ import { AbstractState } from "./AbstractState";
 import { BombernedGame } from "../BombernedGame";
 import { Player } from "../entities/Player";
 import { Bomb } from "../entities/Bomb";
-import { Arrow, ArrowDamageResolver } from "../entities/Arrow";
+import { Arrow } from "../entities/Arrow";
 
 import { Team } from "../entities/Team";
 import { Menu } from "../ui/Menu";

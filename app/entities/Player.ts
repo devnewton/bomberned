@@ -73,7 +73,7 @@ export class Player extends Phaser.Sprite {
 
     constructor( game: Phaser.Game, key: string ) {
         super( game, game.world.centerX, game.world.centerY, key );
-        this.health = 3;
+        this.health = 1;
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.back', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.front', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.left', 4 );
@@ -121,5 +121,33 @@ export class Player extends Phaser.Sprite {
         }
         return this;
     }
+    
+    
+    kill(): Phaser.Sprite {
+        let ghost = new Ghost(this.game, this.key as string);
+        ghost.x = this.x;
+        ghost.y = this.y;
+        
+        let goToHeavenTween = this.game.add.tween(ghost);
+        goToHeavenTween.to({y: -100}, 5000, "Linear", true);
+        
+        let swirlTween = this.game.add.tween(ghost);
+        swirlTween.to({x: "-50"}, 1000, "Linear", true, 0, -1, true);
+        
+        this.game.state.getCurrentState().add.existing(ghost);
+        
+        this.destroy();
+        return this;
+    }
 
+}
+
+class Ghost extends Phaser.Sprite{
+    constructor( game: Phaser.Game, key: string ) {
+        super( game, game.world.centerX, game.world.centerY, key );
+        this.outOfBoundsKill = true;
+        ( <BombernedGame>game ).addSpriteAnimation( this, 'player.ghost', 1 );
+        this.play( "player.ghost", 1, false );
+        this.anchor.setTo( 0.5, 0.5 );
+    }
 }
