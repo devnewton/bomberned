@@ -10,8 +10,6 @@ interface PlayerState {
 
 class PlayerRunningState implements PlayerState {
     
-    nextBombTime = -1;
-    
     update( player: Player ) {
         if ( !player.oldPos.equals( player.position ) ) {
             player.oldPos = player.position.clone();
@@ -22,16 +20,17 @@ class PlayerRunningState implements PlayerState {
             
             let aimingAngle = player.controls.aimingAngle(player.position);
             if(aimingAngle != null) {
-	            if( player.controls.isShooting() && !player.arrow.alive ) {
+	            if( player.controls.isShooting() && !player.arrow.alive && player.game.time.time > player.nextArrowTime ) {
 	                player.arrow.fire(player.x, player.y, aimingAngle, 500);
+	                player.nextArrowTime = player.game.time.time + 1000;
 	            }
             }
             
-            if( player.controls.isDroppingBomb() && player.game.time.time > this.nextBombTime) {
+            if( player.controls.isDroppingBomb() && player.game.time.time > player.nextBombTime) {
                 let bomb = new Bomb(player.game);
                 bomb.x = player.x;
                 bomb.y = player.y;
-                this.nextBombTime = player.game.time.time + 1000;
+                player.nextBombTime = player.game.time.time + 1000;
             }
             
             if ( player.controls.isGoingLeft() ) {
@@ -69,6 +68,8 @@ export class Player extends Phaser.Sprite {
     state: PlayerState;
     cpuData: any = {};
     arrow: Arrow;
+    nextBombTime = -1;
+    nextArrowTime = -1;
     static RUNNING_STATE = new PlayerRunningState();
 
     constructor( game: Phaser.Game, key: string ) {
