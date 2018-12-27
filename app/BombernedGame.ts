@@ -43,7 +43,7 @@ export class BombernedGame extends Phaser.Game {
 
     createGame() {
         this.controllers = new Controllers(this);
-        this.state.start('Intro');
+        this.state.start(this.device.chrome ? 'Title' : 'Intro');
     }
 
     addSpriteAnimation(sprite: Phaser.Sprite, animationName: string, frameCount: number): Phaser.Animation {
