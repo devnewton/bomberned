@@ -47,7 +47,6 @@ export class Level extends AbstractState {
         this.game.load.image( 'moustakis-win', 'victory/moustakis-win.png' );
         this.game.load.tilemap( 'map', 'levels/level1.json', null, Phaser.Tilemap.TILED_JSON );
         this.game.load.image( 'dojo', 'levels/dojo.png' );
-        this.game.load.image( 'arabic1', 'sprites/opengameart/arabic_set/arabic1.png' );
         this.game.load.audio( 'level-music', 'musics/opengameart/8-bit-music-pack-loopable/bgm_action_4.mp3' )
         this.game.load.audio( 'victory-music', 'musics/opengameart/hungry-dino-9-chiptune-tracks-10-sfx/victory.mp3' )
     }
