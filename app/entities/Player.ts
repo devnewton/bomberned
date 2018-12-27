@@ -73,7 +73,7 @@ export class Player extends Phaser.Sprite {
 
     constructor( game: Phaser.Game, key: string ) {
         super( game, game.world.centerX, game.world.centerY, key );
-        this.health = 1;
+        this.health = 3;
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.back', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.front', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.left', 4 );
