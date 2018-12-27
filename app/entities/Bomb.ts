@@ -3,7 +3,7 @@ import { BombernedGame } from "../BombernedGame";
 import { Level } from "../states/Level";
 import { Explosion } from "./Explosion";
 
-const TIME_BEFORE_EXPLOSION = 50000;
+const TIME_BEFORE_EXPLOSION = 5000;
 const ABOUT_TO_EXPLODE_ANIM_DURATION = 3000;
 
 export class Bomb extends Phaser.Sprite {
