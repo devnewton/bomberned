@@ -3,7 +3,6 @@ import {AbstractState} from "./AbstractState";
 import {Menu} from "../ui/Menu";
 import { BombernedGame } from "../BombernedGame";
 
-
 export class KeyboardOptions extends AbstractState {
 
     constructor() {
@@ -24,18 +23,18 @@ export class KeyboardOptions extends AbstractState {
         const menu = new Menu(this.game).disableKeyboardCursor();
         menu.button("Azerty zsqd", 200, 100, () => {
             localStorage.setItem('keyboard.layout', 'azerty');
-            (this.game as BombernedGame).controllers.getKeyboard().setupKeyboardLayout();
-            this.game.state.start('Options');
+            (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupKeyboardLayout();
+            this.game.state.start('MouseOptions');
         });
         menu.button("Qwerty wsad", 200, 200, () => {
             localStorage.setItem('keyboard.layout', 'qwerty');
-            (this.game as BombernedGame).controllers.getKeyboard().setupKeyboardLayout();
-            this.game.state.start('Options');
+            (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupKeyboardLayout();
+            this.game.state.start('MouseOptions');
         });
         menu.button("⬆⬇⬅➡", 200, 300, () => {
             localStorage.setItem('keyboard.layout', 'other');
-            (this.game as BombernedGame).controllers.getKeyboard().setupKeyboardLayout();
-            this.game.state.start('Options');
+            (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupKeyboardLayout();
+            this.game.state.start('MouseOptions');
         });
         menu.button("Custom", 200, 400, () => {
             this.game.state.start('KeyboardOptionsBindKey', true, false);

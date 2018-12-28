@@ -37,7 +37,7 @@ export class Controllers {
 		}
 	}
 
-	getKeyboard(): KeyboardAndMouseControls {
+	getKeyboardAndMouse(): KeyboardAndMouseControls {
 		return this.controllers[0] as KeyboardAndMouseControls;
 	}
 
@@ -135,11 +135,19 @@ export class KeyboardAndMouseControls extends AbstractControls {
 	keyCodeMoveLeft: number;
 	keyCodeMoveRight: number;
 	keyCodeMenu: number;
+    bombMouseButton: string;
+    shootMouseButton: string;
 
 	constructor(game: Phaser.Game) {
 		super();
 		this.game = game;
 		this.setupKeyboardLayout();
+		this.setupMouseLayout();
+	}
+	
+	setupMouseLayout() {
+	    this.bombMouseButton = localStorage.getItem('mouse.bomb') || 'LB';
+	    this.shootMouseButton = localStorage.getItem('mouse.shoot') || 'RB';
 	}
 
 	setupKeyboardLayout() {
@@ -189,7 +197,7 @@ export class KeyboardAndMouseControls extends AbstractControls {
 	}
 
 	isShooting(): boolean {
-		return this.game.input.activePointer.rightButton.isDown;
+		return this.isMouseButtonDown(this.shootMouseButton);
 	}
 
 	aimingAngle(playerPos: Phaser.Point): number {
@@ -213,11 +221,22 @@ export class KeyboardAndMouseControls extends AbstractControls {
 	}
 
 	isDroppingBomb(): boolean {
-		return this.kb && this.game.input.activePointer.leftButton.isDown;
+	    return this.isMouseButtonDown(this.bombMouseButton);
 	}
 
 	isMenuAsked(): boolean {
 		return this.kb && this.kb.isDown(this.keyCodeMenu);
+	}
+	
+	private isMouseButtonDown(button: string): boolean {
+	    switch(button) {
+	    case 'LB':
+	        return this.game.input.activePointer.leftButton.isDown;
+        case 'RB':
+            return this.game.input.activePointer.rightButton.isDown;
+        default:
+            return false;
+	    }
 	}
 
 }

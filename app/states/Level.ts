@@ -191,7 +191,7 @@ export class Level extends AbstractState {
             return true;
         }
         const controllers = ( this.game as BombernedGame ).controllers;
-        let isMenuAsked = controllers.getKeyboard().isMenuAsked();
+        let isMenuAsked = controllers.getKeyboardAndMouse().isMenuAsked();
         this.nedsTeam.forEachAlive(( player ) => {
             isMenuAsked = isMenuAsked || player.controls.isMenuAsked();
         }, null );

@@ -4,6 +4,7 @@ import {Help1} from "./states/Help1";
 import {Title} from "./states/Title";
 import {Options} from "./states/Options";
 import {KeyboardOptions} from "./states/KeyboardOptions";
+import {MouseOptions} from "./states/MouseOptions";
 import {KeyboardOptionsBindKey} from "./states/KeyboardOptionsBindKey";
 import {GamepadOptions} from "./states/GamepadOptions";
 import {GamepadOptionsLayout} from "./states/GamepadOptionsLayout";
@@ -29,6 +30,7 @@ export class BombernedGame extends Phaser.Game {
         this.state.add('GamepadOptionsBindAxisOrButton', GamepadOptionsBindAxisOrButton);
         this.state.add('KeyboardOptions', KeyboardOptions);
         this.state.add('KeyboardOptionsBindKey', KeyboardOptionsBindKey);
+        this.state.add('MouseOptions', MouseOptions);
         this.state.add('GamepadOptions', GamepadOptions);
         this.state.add('TeamSelectScreen', TeamSelectScreen);
         this.state.add('Level', Level);
