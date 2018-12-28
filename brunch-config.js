@@ -16,6 +16,8 @@ module.exports = {
 		}
 	},
 	notifications: false,
+	optimize: true,
+	sourceMaps: true,
 	plugins: {
 		brunchTypescript: {
 			ignoreErrors: true
