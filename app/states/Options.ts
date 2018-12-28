@@ -21,7 +21,7 @@ export class Options extends AbstractState {
 
         let y = 100;
         const menu = new Menu(this.game);
-        menu.button("Keyboard", 200, y += 150, () => this.game.state.start('KeyboardOptions'));
+        menu.button("Keyboard & mouse", 200, y += 150, () => this.game.state.start('KeyboardOptions'));
         if (this.input.gamepad.supported) {
             menu.button("Gamepad", 200, y += 150, () => this.game.state.start('GamepadOptions'));
         }

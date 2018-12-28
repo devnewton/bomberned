@@ -11,7 +11,6 @@ export class KeyboardOptionsBindKey extends AbstractState {
         { label: 'Press move down key', localStorageKey: 'moveDown' },
         { label: 'Press move left key', localStorageKey: 'moveLeft' },
         { label: 'Press move right key', localStorageKey: 'moveRight' },
-        { label: 'Press shoot key', localStorageKey: 'shoot' },
         { label: 'Press menu key', localStorageKey: 'menu' }
     ];
 
