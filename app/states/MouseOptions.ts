@@ -22,14 +22,14 @@ export class MouseOptions extends AbstractState {
 
         const menu = new Menu(this.game).disableKeyboardCursor();
         menu.button("Bomb LB, shoot RB", 200, 100, () => {
-            localStorage.setItem('mouse.bomb', 'LB');
-            localStorage.setItem('mouse.shoot', 'RB');
+            localStorage.setItem('bomberned.mouse.bomb', 'LB');
+            localStorage.setItem('bomberned.mouse.shoot', 'RB');
             (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupMouseLayout();
             this.game.state.start('Options');
         });
         menu.button("Bomb RB, shoot LB", 200, 200, () => {
-            localStorage.setItem('mouse.bomb', 'RB');
-            localStorage.setItem('mouse.shoot', 'LB');
+            localStorage.setItem('bomberned.mouse.bomb', 'RB');
+            localStorage.setItem('bomberned.mouse.shoot', 'LB');
             (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupMouseLayout();
             this.game.state.start('Options');
         });

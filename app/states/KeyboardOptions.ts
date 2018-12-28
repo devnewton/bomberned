@@ -22,17 +22,17 @@ export class KeyboardOptions extends AbstractState {
 
         const menu = new Menu(this.game).disableKeyboardCursor();
         menu.button("Azerty zsqd", 200, 100, () => {
-            localStorage.setItem('keyboard.layout', 'azerty');
+            localStorage.setItem('bomberned.keyboard.layout', 'azerty');
             (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupKeyboardLayout();
             this.game.state.start('MouseOptions');
         });
         menu.button("Qwerty wsad", 200, 200, () => {
-            localStorage.setItem('keyboard.layout', 'qwerty');
+            localStorage.setItem('bomberned.keyboard.layout', 'qwerty');
             (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupKeyboardLayout();
             this.game.state.start('MouseOptions');
         });
         menu.button("⬆⬇⬅➡", 200, 300, () => {
-            localStorage.setItem('keyboard.layout', 'other');
+            localStorage.setItem('bomberned.keyboard.layout', 'other');
             (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupKeyboardLayout();
             this.game.state.start('MouseOptions');
         });

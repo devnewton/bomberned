@@ -62,15 +62,6 @@ export abstract class AbstractControls {
 	abstract isMenuAsked(): boolean;
 	abstract isShooting(): boolean;
 	abstract aimingAngle(playerPos: Phaser.Point): number;
-
-	protected readNumberFromLocalStorage(key: string, defaultValue: number) {
-		let i = parseInt(localStorage.getItem(key));
-		if (isNaN(i)) {
-			return defaultValue;
-		} else {
-			return i;
-		}
-	}
 }
 
 export class CPUControls extends AbstractControls {
@@ -146,12 +137,12 @@ export class KeyboardAndMouseControls extends AbstractControls {
 	}
 	
 	setupMouseLayout() {
-	    this.bombMouseButton = localStorage.getItem('mouse.bomb') || 'LB';
-	    this.shootMouseButton = localStorage.getItem('mouse.shoot') || 'RB';
+	    this.bombMouseButton = localStorage.getItem('bomberned.mouse.bomb') || 'LB';
+	    this.shootMouseButton = localStorage.getItem('bomberned.mouse.shoot') || 'RB';
 	}
 
 	setupKeyboardLayout() {
-		const layout = localStorage.getItem('keyboard.layout');
+		const layout = localStorage.getItem('bomberned.keyboard.layout');
 		this.kb = this.game.input.keyboard;
 		try {
 			let mapping: KeyboardControlsMapping = JSON.parse(layout) || {};
@@ -280,7 +271,7 @@ export class PadControls extends AbstractControls {
 				this.pad = pad;
 				let layout: PadControlsMapping = {};
 				try {
-					layout = JSON.parse(localStorage.getItem('gamepad.' + GamepadUtils.gamepadId(this.pad) + '.layout')) || {};
+					layout = JSON.parse(localStorage.getItem('bomberned.gamepad.' + GamepadUtils.gamepadId(this.pad) + '.layout')) || {};
 				} catch (e) {
 					layout = {};
 				}

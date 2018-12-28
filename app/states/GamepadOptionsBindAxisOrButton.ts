@@ -38,7 +38,7 @@ export class GamepadOptionsBindAxisOrButton extends AbstractState {
         this.pad = GamepadUtils.gamepadByIndex(this.game, padIndex);
         if (binding >= this.bindingsDescription.length) {
             this.currentBinding = 0;
-            localStorage.setItem('gamepad.' + GamepadUtils.gamepadId(this.pad) + '.layout', JSON.stringify(this.bindings));
+            localStorage.setItem('bomberned.gamepad.' + GamepadUtils.gamepadId(this.pad) + '.layout', JSON.stringify(this.bindings));
             (this.game as BombernedGame).controllers.updatePadLayout();
             this.game.state.start('GamepadOptions');
         } else {

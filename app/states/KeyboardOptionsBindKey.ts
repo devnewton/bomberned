@@ -29,7 +29,7 @@ export class KeyboardOptionsBindKey extends AbstractState {
         this.bindings = bindings || {};
         if (binding >= this.bindingsDescription.length) {
             this.currentBinding = 0;
-            localStorage.setItem('keyboard.layout', JSON.stringify(this.bindings));
+            localStorage.setItem('bomberned.keyboard.layout', JSON.stringify(this.bindings));
             (this.game as BombernedGame).controllers.getKeyboardAndMouse().setupKeyboardLayout();
             this.game.state.start('MouseOptions');
         } else {

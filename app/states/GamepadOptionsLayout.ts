@@ -28,7 +28,7 @@ export class GamepadOptionsLayout extends AbstractState {
 
         const menu = new Menu(this.game).disableGamepadCursor();
         menu.button("Xbox", 200, 200, () => {
-            localStorage.setItem('gamepad.' + GamepadUtils.gamepadId(GamepadUtils.gamepadByIndex(this.game, this.padIndex)) + '.layout', 'xbox');
+            localStorage.setItem('bomberned.gamepad.' + GamepadUtils.gamepadId(GamepadUtils.gamepadByIndex(this.game, this.padIndex)) + '.layout', 'xbox');
             this.game.state.start('Options');
         });
         menu.button("Custom", 200, 300, () => {
