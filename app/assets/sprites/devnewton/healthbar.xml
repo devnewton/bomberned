@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TextureAtlas imagePath="healthbar.png">
+    <SubTexture name="health4" x="0" y="0" width="32" height="8" />
+    <SubTexture name="health3" x="0" y="8" width="32" height="8" />
+    <SubTexture name="health2" x="0" y="16" width="32" height="8" />
+    <SubTexture name="health1" x="0" y="24" width="32" height="8" />
+</TextureAtlas>

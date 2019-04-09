@@ -61,6 +61,7 @@ class PlayerRunningState implements PlayerState {
     }
 }
 
+const PLAYER_HEALTH = 4
 
 export class Player extends Phaser.Sprite {
 
@@ -70,11 +71,12 @@ export class Player extends Phaser.Sprite {
     arrow: Arrow;
     nextBombTime = -1;
     nextArrowTime = -1;
+    healthbar: Lifebar;
     static RUNNING_STATE = new PlayerRunningState();
 
     constructor( game: Phaser.Game, key: string ) {
         super( game, game.world.centerX, game.world.centerY, key );
-        this.health = 3;
+        this.health = PLAYER_HEALTH;
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.back', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.front', 4 );
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.walk.left', 4 );
@@ -96,9 +98,13 @@ export class Player extends Phaser.Sprite {
         this.arrow.arrowCharge.name = this.name + '-arrow-charge';
 
         this.data.friends = [ this.arrow.arrowCharge.name ];
+        
+        this.healthbar = new Lifebar(this.game, PLAYER_HEALTH, 0, 32);
+        this.addChild(this.healthbar);
     }
 
     static preload( game: Phaser.Game ) {
+    	game.load.atlasXML( 'healthbar', 'sprites/devnewton/healthbar.png', 'sprites/devnewton/healthbar.xml' );
         game.load.atlasXML( 'ned', 'sprites/devnewton/ned.png', 'sprites/devnewton/player.xml' );
         game.load.atlasXML( 'ned2', 'sprites/devnewton/ned2.png', 'sprites/devnewton/player.xml' );
         game.load.atlasXML( 'moustaki', 'sprites/devnewton/moustaki.png', 'sprites/devnewton/player.xml' );
@@ -119,6 +125,7 @@ export class Player extends Phaser.Sprite {
             this.invincible = true;
             this.game.add.tween(this).from({ tint: 0xFF0000 }).to({ tint: 0xFFFFFF }, 1000, Phaser.Easing.Linear.None, true, 0, 4, false).onComplete.add(() => this.invincible = false);
             super.damage(amount);
+            this.healthbar.update();
         }
         return this;
     }
@@ -150,5 +157,31 @@ class Ghost extends Phaser.Sprite{
         ( <BombernedGame>game ).addSpriteAnimation( this, 'player.ghost', 1 );
         this.play( "player.ghost", 1, false );
         this.anchor.setTo( 0.5, 0.5 );
+    }
+}
+
+const LIFEBAR_FRAMES = 4;
+class Lifebar extends Phaser.Sprite {	
+    constructor( game: Phaser.Game, maxHealth: number, x:number, y:number) {
+        super( game, x, y, "healthbar" );
+        this.maxHealth = maxHealth;
+        for(let i=1; i<=LIFEBAR_FRAMES; ++i) {
+        	let h = 'health' + i;
+        	this.animations.add(h, [h]);
+        } 
+        this.play( "life" + LIFEBAR_FRAMES, 1, false );
+        this.anchor.setTo( 0.5, 0.5 );
+    }
+    
+    update() {
+    	let health = this.parent ? (this.parent as Phaser.Sprite).health : 0;
+     	if(health >= LIFEBAR_FRAMES ) {
+     		health = LIFEBAR_FRAMES;
+     	}
+     	if(health <= 0) {
+     		this.kill();
+     	} else {
+    		this.play( "health" + health, 1, false );
+    	}
     }
 }
